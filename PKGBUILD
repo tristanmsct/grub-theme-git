@@ -1,63 +1,9 @@
 # Maintainer: snogard <snogardb at gmail dot com>
 # Contributor: Dct Mei <dctxmei@yandex.com>
-
 pkgbase=grub-themes-git
 _pkgbase=grub2-themes
-pkgname=('grub-theme-tela-color-1080p-git'
-         'grub-theme-tela-color-2k-git'
-         'grub-theme-tela-color-4k-git'
-         'grub-theme-tela-color-ultrawide-git'
-         'grub-theme-tela-color-ultrawide2k-git'
-         'grub-theme-tela-white-1080p-git'
-         'grub-theme-tela-white-2k-git'
-         'grub-theme-tela-white-4k-git'
-         'grub-theme-tela-white-ultrawide-git'
-         'grub-theme-tela-white-ultrawide2k-git'
-         'grub-theme-tela-whitesur-1080p-git'
-         'grub-theme-tela-whitesur-2k-git'
-         'grub-theme-tela-whitesur-4k-git'
-         'grub-theme-tela-whitesur-ultrawide-git'
-         'grub-theme-tela-whitesur-ultrawide2k-git'
-         'grub-theme-vimix-color-1080p-git'
-         'grub-theme-vimix-color-2k-git'
-         'grub-theme-vimix-color-4k-git'
-         'grub-theme-vimix-color-ultrawide-git'
-         'grub-theme-vimix-color-ultrawide2k-git'
-         'grub-theme-vimix-white-1080p-git'
-         'grub-theme-vimix-white-2k-git'
-         'grub-theme-vimix-white-4k-git'
-         'grub-theme-vimix-white-ultrawide-git'
-         'grub-theme-vimix-white-ultrawide2k-git'
-         'grub-theme-vimix-whitesur-1080p-git'
-         'grub-theme-vimix-whitesur-2k-git'
-         'grub-theme-vimix-whitesur-4k-git'
-         'grub-theme-vimix-whitesur-ultrawide-git'
-         'grub-theme-vimix-whitesur-ultrawide2k-git'
-         'grub-theme-stylish-color-1080p-git'
-         'grub-theme-stylish-color-2k-git'
-         'grub-theme-stylish-color-4k-git'
-         'grub-theme-stylish-color-ultrawide-git'
-         'grub-theme-stylish-color-ultrawide2k-git'
-         'grub-theme-stylish-white-1080p-git'
-         'grub-theme-stylish-white-2k-git'
-         'grub-theme-stylish-white-4k-git'
-         'grub-theme-stylish-white-ultrawide-git'
-         'grub-theme-stylish-white-ultrawide2k-git'
-         'grub-theme-stylish-whitesur-1080p-git'
-         'grub-theme-stylish-whitesur-2k-git'
-         'grub-theme-stylish-whitesur-4k-git'
-         'grub-theme-stylish-whitesur-ultrawide-git'
-         'grub-theme-stylish-whitesur-ultrawide2k-git'
-         'grub-theme-whitesur-color-1080p-git'
-         'grub-theme-whitesur-color-2k-git'
-         'grub-theme-whitesur-color-4k-git'
-         'grub-theme-whitesur-white-1080p-git'
-         'grub-theme-whitesur-white-2k-git'
-         'grub-theme-whitesur-white-4k-git'
-         'grub-theme-whitesur-whitesur-1080p-git'
-         'grub-theme-whitesur-whitesur-2k-git'
-         'grub-theme-whitesur-whitesur-4k-git')
-pkgver=2021.12.05.r21.gfa74d1b
+pkgname=('grub-theme-tela')
+pkgver=2025.07.23.r4.g80dd04d
 pkgrel=1
 pkgdesc="Flat Design themes for Grub"
 arch=('any')
@@ -69,46 +15,20 @@ source=("git+${url}.git")
 sha256sums=('SKIP')
 
 pkgver() {
-    cd "${srcdir}"/"${_pkgbase}"/
+    cd grub2-themes
     git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-_package() {
-    cd "${srcdir}"/"${_pkgbase}"/
-    install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/"${name}-${icon}-${resolution}-git"/
-    install -Dm 644 common/* -t "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/
-    install -Dm 644 config/"theme-${resolution}.txt" "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/theme.txt
-    install -Dm 644 backgrounds/"${resolution}"/"background-${name}.jpg" "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/background.jpg
-    for icons in 'color' 'white' 'whitesur'; do
-        if [[ "${icon}" == "${icons}" ]]; then
-            if [[ "${resolution}" == 'ultrawide' ]]; then
-                install -Dm 644 assets/assets-select/select-1080p/* -t "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/
-                install -Dm 644 assets/"assets-${icon}"/icons-1080p/* -t "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/icons/
-                install -Dm 644 assets/info-1080p.png "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/info.png
-            elif [[ "${resolution}" == 'ultrawide2k' ]]; then
-                install -Dm 644 assets/assets-select/select-2k/* -t "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/
-                install -Dm 644 assets/"assets-${icon}"/icons-2k/* -t "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/icons/
-                install -Dm 644 assets/info-2k.png "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/info.png
-            else
-                install -Dm 644 assets/assets-select/"select-${resolution}"/* -t "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/
-                install -Dm 644 assets/"assets-${icon}"/"icons-${resolution}"/* -t "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/icons/
-                install -Dm 644 assets/"info-${resolution}.png" "${pkgdir}"/usr/share/grub/themes/"${name}-${icon}-${resolution}"/info.png
-            fi
-        fi
-    done
+package() {
+    cd grub2-themes
+    
+    # Run the install script to a temporary location
+    ./install.sh -t tela -g "${srcdir}/temp"
+    
+    # Move the generated theme to the package directory
+    install -dm755 "${pkgdir}/boot/grub/themes"
+    cp -r "${srcdir}/temp/tela" "${pkgdir}/boot/grub/themes/"
+    
+    # Install license
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
-
-main() {
-    for _pkgname in "${pkgname[@]}"; do
-        eval "package_${_pkgname}() {
-            provides=("${_pkgname%-*}")
-            conflicts=("${_pkgname%-*}")
-            name="$(echo ${_pkgname%-*} | sed 's/grub-theme-//' | awk -F '-' '{print $1}')"
-            icon="$(echo ${_pkgname%-*} | sed 's/grub-theme-//' | awk -F '-' '{print $2}')"
-            resolution="$(echo ${_pkgname%-*} | sed 's/grub-theme-//' | awk -F '-' '{print $3}')"
-            _package
-        }"
-    done
-}
-
-main
